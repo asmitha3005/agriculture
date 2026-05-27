@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Smart Agriculture AI</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+<div class="container">
+
+<h1 class="title">🌿 Smart Agriculture AI</h1>
+<p class="subtitle">AI Powered Plant Disease Detection & Smart Farming Assistant</p>
+
+<form method="POST" enctype="multipart/form-data">
+
+<div class="upload-box">
+<h2>📷 Upload Plant Leaf Image</h2>
+<p>Select an image for disease detection</p>
+
+<input type="file"
+name="image"
+accept="image/*"
+onchange="previewImage(event)"
+required>
+</div>
+
+<div class="preview">
+<img id="previewImage">
+</div>
+
+<button class="detect-btn">
+🚀 Detect Disease
+</button>
+
+</form>
+
+{% if img_data %}
+<div class="preview">
+<img src="data:image/jpeg;base64,{{ img_data }}">
+</div>
+{% endif %}
+
+{% if result %}
+
+<div class="result-card">
+
+<h2 class="result-title">🌱 Detection Result</h2>
+
+<div style="text-align:center;">
+<span class="badge">{{ result }}</span>
+</div>
+
+<div class="grid">
+
+<div class="info-box">
+<h4>🎯 Confidence</h4>
+<p>{{ confidence }}%</p>
+</div>
+
+<div class="info-box">
+<h4>💧 Soil Moisture</h4>
+<p>{{ soil_moisture }}%</p>
+</div>
+
+<div class="info-box">
+<h4>🧪 Pesticide</h4>
+<p>{{ pesticide }}</p>
+</div>
+
+<div class="info-box">
+<h4>🌿 Home Remedy</h4>
+<p>{{ remedy_name }}</p>
+</div>
+
+<div class="info-box full">
+<h4>📖 Process</h4>
+<p>{{ remedy_process }}</p>
+</div>
+
+</div>
+
+</div>
+
+{% endif %}
+
+<div class="footer">
+Made with ❤️ for Farmers
+</div>
+
+</div>
+
+<script>
+
+function previewImage(event){
+
+const file=event.target.files[0];
+
+if(file){
+
+const reader=new FileReader();
+
+reader.onload=function(e){
+
+document.getElementById("previewImage").src=e.target.result;
+
+}
+
+reader.readAsDataURL(file);
+
+}
+
+}
+
+</script>
+
+</body>
+</html>
